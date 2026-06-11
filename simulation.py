@@ -41,6 +41,11 @@ CHECKPOINT_PATH = os.path.join(CHECKPOINT_DIR, "ppo_inverted_pendulum.zip")
 # Delay (ms) between simulation steps, driven by Tkinter's event loop.
 STEP_DELAY_MS = 20
 
+# Force applied per key press in manual mode. The action space allows up to
+# 3.0, but pushing that hard makes the cart overshoot and the pole nearly
+# impossible to balance by hand.
+MANUAL_FORCE_MAGNITUDE = 1.0
+
 
 def _warm_up_torch_dynamo():
     """Import ``torch._dynamo`` once, before any GLFW window is created.
@@ -274,7 +279,9 @@ class PendulumSimulatorApp:
             self.episode_reward = 0.0
             self.pressed_keys["reset"] = False
 
-        action = get_manual_action(self.env.action_space, self.pressed_keys)
+        action = get_manual_action(
+            self.env.action_space, self.pressed_keys, magnitude=MANUAL_FORCE_MAGNITUDE
+        )
         self.obs, reward, terminated, truncated, _ = self.env.step(action)
         self.episode_reward += reward
         self.env.render()
