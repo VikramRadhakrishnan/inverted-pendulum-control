@@ -171,6 +171,26 @@ class PendulumSimulatorApp:
             command=on_restart,
         ).pack()
 
+        self._episode_end_restart = on_restart
+        self._episode_end_step()
+
+    def _episode_end_step(self):
+        """Keep the render window responsive while paused, and let R/Esc work."""
+        if self.env is None:
+            return
+
+        if self._render_window_closed() or self.pressed_keys.get("quit"):
+            self.show_main_menu()
+            return
+
+        if self.pressed_keys.get("reset"):
+            self.pressed_keys["reset"] = False
+            self._episode_end_restart()
+            return
+
+        self.env.render()
+        self.after_id = self.root.after(STEP_DELAY_MS, self._episode_end_step)
+
     def _dismiss_episode_end_prompt(self):
         if self.episode_end_frame is not None:
             self.episode_end_frame.destroy()

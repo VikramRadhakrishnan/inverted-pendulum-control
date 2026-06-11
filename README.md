@@ -76,8 +76,8 @@ toggle it back on.
 
 When an episode ends (the pole falls or the step limit is reached), the
 simulation pauses and the control panel shows the final episode reward with
-a **Start New Episode** button. Click it to reset and continue, or use
-**Back to Menu** to exit.
+a **Start New Episode** button. Click it, or press `R` in the viewer window,
+to reset and continue -- or use **Back to Menu** / `Esc` to exit.
 
 ### Manual control
 
