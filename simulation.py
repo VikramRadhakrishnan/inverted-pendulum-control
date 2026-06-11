@@ -39,12 +39,12 @@ CHECKPOINT_DIR = os.path.join(BASE_DIR, "checkpoints")
 CHECKPOINT_PATH = os.path.join(CHECKPOINT_DIR, "ppo_inverted_pendulum.zip")
 
 # Delay (ms) between simulation steps, driven by Tkinter's event loop.
-STEP_DELAY_MS = 20
+STEP_DELAY_MS = 50
 
 # Force applied per key press in manual mode. The action space allows up to
 # 3.0, but pushing that hard makes the cart overshoot and the pole nearly
 # impossible to balance by hand.
-MANUAL_FORCE_MAGNITUDE = 1.0
+MANUAL_FORCE_MAGNITUDE = 0.5
 
 
 def _warm_up_torch_dynamo():
